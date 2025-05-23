@@ -12,17 +12,24 @@ RUN a2enmod rewrite
 # Copier les fichiers de l'application
 COPY . /var/www/html
 
-# Travailler depuis le dossier de Laravel
+# Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Installer Composer
+# Copier Composer depuis l'image officielle
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Installer les dépendances Laravel
 RUN composer install --optimize-autoloader --no-dev
 
-# Définir les permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Définir les permissions correctes
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
+# Générer la clé, cacher la config, migrer la DB, puis seed
+RUN php artisan key:generate \
+    && php artisan config:cache \
+    && php artisan migrate --force || true \
+    && php artisan db:seed --force || true
 
 # Exposer le port 80
 EXPOSE 80

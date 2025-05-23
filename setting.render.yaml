@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: sgc
+    name: https://sgc-q0lb.onrender.com/
     env: docker
     dockerfilePath: Dockerfile
     plan: free

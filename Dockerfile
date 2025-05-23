@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Installer les dépendances système + extensions PHP requises (PostgreSQL, etc.)
+# Installer les dépendances système + extensions PHP requises
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     unzip \
@@ -23,16 +23,18 @@ WORKDIR /var/www/html
 # Copier le code Laravel dans le conteneur
 COPY . .
 
-# Droits d'accès
-RUN chown -R www-data:www-data storage bootstrap/cache && \
-    chmod -R 775 storage bootstrap/cache
-
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-
+# Installer Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Installer les dépendances PHP via Composer
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
+# Droits d'accès
+RUN chown -R www-data:www-data storage bootstrap/cache vendor && \
+    chmod -R 775 storage bootstrap/cache vendor
 
+# Copier la configuration Apache
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Copier le script de démarrage
 COPY start.sh /start.sh

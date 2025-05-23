@@ -9,11 +9,14 @@ RUN apt-get update && apt-get install -y \
 # Activer le module Apache Rewrite
 RUN a2enmod rewrite
 
-# Copier les fichiers de l'application
-COPY . /var/www/html
-
 # Définir le répertoire de travail
 WORKDIR /var/www/html
+
+# Copier tous les fichiers de l'application
+COPY . .
+
+# Copier la config Apache personnalisée
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Copier Composer depuis l'image officielle
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

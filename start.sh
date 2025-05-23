@@ -1,13 +1,23 @@
 #!/bin/bash
 
-# Crée un fichier .env à partir des variables d'environnement Render
-printenv | grep -E "^(APP_|DB_)" > .env
+echo "➡️  Vérification des extensions PHP..."
+php -m | grep -i pdo
 
-# Laravel setup (fait à l'exécution du container)
+echo "📂 Attribution des permissions sur storage et bootstrap/cache..."
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+
+echo "🔐 Génération de la clé d'application..."
 php artisan key:generate
+
+echo "⚙️ Mise en cache de la configuration..."
 php artisan config:cache
+
+echo "🛠️ Exécution des migrations..."
 php artisan migrate --force || true
+
+echo "🌱 Exécution des seeders..."
 php artisan db:seed --force || true
 
-# Lancer Apache en mode foreground
+echo "🚀 Lancement du serveur Apache..."
 exec apache2-foreground

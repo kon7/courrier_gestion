@@ -11,6 +11,12 @@ echo "🔐 Génération de la clé d'application..."
 if [ ! -f .env ]; then
     cp .env.example .env
 fi
+
+# 👉 Définir dynamiquement l'APP_URL
+APP_URL=${APP_URL:-http://localhost}
+sed -i "s|^APP_URL=.*|APP_URL=${APP_URL}|" .env
+echo "🌍 APP_URL défini sur ${APP_URL}"
+
 php artisan key:generate
 
 echo "⚙️ Mise en cache de la configuration..."
@@ -23,7 +29,6 @@ php artisan migrate --force || echo "❌ Migration échouée, vérifie ta connex
 echo "🌱 Exécution des seeders..."
 php artisan db:seed --force || echo "❌ Seeder échoué."
 php artisan db:seed --class=RolePermissionSeeder
-
 
 echo "🚀 Lancement du serveur Apache..."
 apache2-foreground

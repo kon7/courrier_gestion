@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
 # Activer mod_rewrite pour Laravel
 RUN a2enmod rewrite
 
-# Corriger le DirectoryIndex pour qu'Apache serve index.php
+# Corriger le DirectoryIndex
 RUN echo "<IfModule dir_module>\nDirectoryIndex index.php index.html\n</IfModule>" > /etc/apache2/conf-available/serve-index.conf \
     && a2enconf serve-index
 

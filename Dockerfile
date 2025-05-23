@@ -28,11 +28,12 @@ RUN composer install --optimize-autoloader --no-dev
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Générer la clé, cacher la config, migrer la DB, puis seed
-RUN php artisan key:generate \
-    && php artisan config:cache \
-    && php artisan migrate --force || true \
-    && php artisan db:seed --force || true
+# Copier le script de démarrage personnalisé
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Utiliser le script comme point d'entrée
+CMD ["/start.sh"]
 
 # Exposer le port 80
 EXPOSE 80

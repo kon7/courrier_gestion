@@ -26,6 +26,9 @@ COPY . .
 # Droits d'accès
 RUN chown -R www-data:www-data storage bootstrap/cache && \
     chmod -R 775 storage bootstrap/cache
+    
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
+
 
 # Copier le script de démarrage
 COPY start.sh /start.sh

@@ -1,25 +1,19 @@
-services:
-  - type: web
-    name: https://sgc-q0lb.onrender.com/
-    env: docker
-    dockerfilePath: Dockerfile
-    plan: free
-    envVars:
-      - key: APP_ENV
-        value: local
-      - key: APP_KEY
-        generateValue: true
-      - key: APP_DEBUG
-        value: true
-      - key: DB_CONNECTION
-        value: pgsql
-      - key: DB_HOST
-        value: dpg-d0o294odl3ps73a6r6c0-a
-      - key: DB_PORT
-        value: 5432
-      - key: DB_DATABASE
-        value: courrier_gestion
-      - key: DB_USERNAME
-        value: diane
-      - key: DB_PASSWORD
-        value: Jak8R4h53pbgAEPVIo5UUCxALDTbgVQY
+envVars:
+  - key: APP_ENV
+    value: local
+  - key: APP_DEBUG
+    value: true
+  - key: APP_KEY
+    generateValue: true
+  - key: DB_CONNECTION
+    value: pgsql
+  - key: DB_HOST
+    value: dpg-d0o294odl3ps73a6r6c0-a
+  - key: DB_PORT
+    value: 5432
+  - key: DB_DATABASE
+    value: courrier_gestion
+  - key: DB_USERNAME
+    value: diane
+  - key: DB_PASSWORD
+    value: Jak8R4h53pbgAEPVIo5UUCxALDTbgVQY

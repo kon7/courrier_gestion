@@ -1,39 +1,44 @@
-# Utiliser l'image officielle PHP avec Apache
+# Étape 1 : Base PHP avec Apache
 FROM php:8.2-apache
 
-# Installer les extensions nécessaires
+# Étape 2 : Installer les dépendances système
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpq-dev libzip-dev \
+    git \
+    unzip \
+    curl \
+    libpq-dev \
+    libzip-dev \
+    zip \
     && docker-php-ext-install pdo pdo_pgsql zip
 
-# Activer le module Apache Rewrite
+# Étape 3 : Activer mod_rewrite pour Laravel
 RUN a2enmod rewrite
 
-# Définir le répertoire de travail
+RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername
+
+
+# Étape 4 : Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier tous les fichiers de l'application
+# Étape 5 : Copier les fichiers du projet Laravel dans l'image
 COPY . .
 
-# Copier la config Apache personnalisée
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+# Étape 6 : Copier automatiquement le .env si absent
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
-# Copier Composer depuis l'image officielle
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Étape 7 : Installer les dépendances PHP
+RUN curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer && \
+    composer install --no-interaction --no-scripts --optimize-autoloader
 
-# Installer les dépendances Laravel
-RUN composer install --optimize-autoloader --no-dev
-
-# Définir les permissions correctes
+# Étape 8 : Fixer les permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Copier le script de démarrage personnalisé
+# Étape 9 : Lancer les scripts Laravel au démarrage
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Utiliser le script comme point d'entrée
+# Étape 10 : Définir le script de démarrage
 CMD ["/start.sh"]
-
-# Exposer le port 80
-EXPOSE 80

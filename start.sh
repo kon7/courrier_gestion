@@ -13,7 +13,7 @@ if [ ! -f .env ]; then
 fi
 
 # 👉 Définir dynamiquement l'APP_URL
-APP_URL=${APP_URL:-http://localhost}
+APP_URL=${APP_URL:-https://sgc-q0lb.onrender.com}
 sed -i "s|^APP_URL=.*|APP_URL=${APP_URL}|" .env
 echo "🌍 APP_URL défini sur ${APP_URL}"
 

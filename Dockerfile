@@ -29,9 +29,17 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Installer les dépendances PHP via Composer
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# Droits d'accès
-RUN chown -R www-data:www-data storage bootstrap/cache vendor && \
-    chmod -R 775 storage bootstrap/cache vendor
+# Droits d'accès complets
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 775 /var/www/html && \
+    chown -R www-data:www-data /var/www/html/public && \
+    chmod -R 775 /var/www/html/public && \
+    chown -R www-data:www-data /var/www/html/storage && \
+    chmod -R 775 /var/www/html/storage && \
+    chown -R www-data:www-data /var/www/html/bootstrap/cache && \
+    chmod -R 775 /var/www/html/bootstrap/cache && \
+    chown -R www-data:www-data /var/www/html/vendor && \
+    chmod -R 775 /var/www/html/vendor
 
 # Copier la configuration Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf

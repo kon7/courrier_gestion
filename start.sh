@@ -22,6 +22,8 @@ php artisan migrate --force || echo "❌ Migration échouée, vérifie ta connex
 
 echo "🌱 Exécution des seeders..."
 php artisan db:seed --force || echo "❌ Seeder échoué."
+php artisan db:seed --class=RolePermissionSeeder
+
 
 echo "🚀 Lancement du serveur Apache..."
 apache2-foreground

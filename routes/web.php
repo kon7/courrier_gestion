@@ -64,14 +64,14 @@ Route::group(['prefix' => 'client/domaines'], function () {
 });
 // client
 Route::group(['prefix' => 'client/clients'], function () {
-    Route::get('/', 'App\Http\Controllers\clientController@index')->name('client.clients.index');
-    Route::get('/load', 'App\Http\Controllers\clientController@load')->name('client.clients.load');
-    Route::get('/create', 'App\Http\Controllers\clientController@create')->name('client.clients.create');
-    Route::post('/store', 'App\Http\Controllers\clientController@store')->name('client.clients.store');
-    Route::get('/{id}/edit', 'App\Http\Controllers\clientController@edit')->name('client.clients.edit');
-    Route::patch('/{id}/update', 'App\Http\Controllers\clientController@update')->name('client.clients.update');
-    Route::post('/{id}/delete', 'App\Http\Controllers\clientController@delete')->name('client.clients.delete');
-    Route::get('/{id}/show', 'App\Http\Controllers\clientController@show')->name('client.clients.show');
+    Route::get('/', 'App\Http\Controllers\ClientController@index')->name('client.clients.index');
+    Route::get('/load', 'App\Http\Controllers\ClientController@load')->name('client.clients.load');
+    Route::get('/create', 'App\Http\Controllers\ClientController@create')->name('client.clients.create');
+    Route::post('/store', 'App\Http\Controllers\ClientController@store')->name('client.clients.store');
+    Route::get('/{id}/edit', 'App\Http\Controllers\ClientController@edit')->name('client.clients.edit');
+    Route::patch('/{id}/update', 'App\Http\Controllers\ClientController@update')->name('client.clients.update');
+    Route::post('/{id}/delete', 'App\Http\Controllers\ClientController@delete')->name('client.clients.delete');
+    Route::get('/{id}/show', 'App\Http\Controllers\ClientController@show')->name('client.clients.show');
 });
 
 // statistique

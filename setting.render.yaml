@@ -5,6 +5,8 @@ envVars:
     value: true
   - key: APP_KEY
     generateValue: true
+  - key: APP_URL
+    value: https://sgc-q0lb.onrender.com
   - key: DB_CONNECTION
     value: pgsql
   - key: DB_HOST

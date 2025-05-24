@@ -41,6 +41,10 @@ RUN chown -R www-data:www-data /var/www/html && \
     chown -R www-data:www-data /var/www/html/vendor && \
     chmod -R 775 /var/www/html/vendor
 
+# Copier le script keep-alive
+COPY keep-alive.sh /keep-alive.sh
+RUN chmod +x /keep-alive.sh
+
 # Copier la configuration Apache
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 

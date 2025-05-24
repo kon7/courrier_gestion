@@ -30,5 +30,8 @@ echo "🌱 Exécution des seeders..."
 php artisan db:seed --force || echo "❌ Seeder échoué."
 php artisan db:seed --class=RolePermissionSeeder
 
+echo "🚀 Lancement du script keep-alive en arrière-plan..."
+/keep-alive.sh &
+
 echo "🚀 Lancement du serveur Apache..."
 apache2-foreground

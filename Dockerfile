@@ -30,9 +30,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Droits d'accès complets
-RUN mkdir -p /var/www/html/public/storage/courriers && \
-    mkdir -p /var/www/html/public/storage/documents && \
-    chown -R www-data:www-data /var/www/html && \
+RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 775 /var/www/html && \
     chown -R www-data:www-data /var/www/html/public && \
     chmod -R 775 /var/www/html/public && \
@@ -41,28 +39,7 @@ RUN mkdir -p /var/www/html/public/storage/courriers && \
     chown -R www-data:www-data /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/bootstrap/cache && \
     chown -R www-data:www-data /var/www/html/vendor && \
-    chmod -R 775 /var/www/html/vendor && \
-    chown -R www-data:www-data /var/www/html/public/storage/courriers && \
-    chmod -R 775 /var/www/html/public/storage/courriers && \
-    chown -R www-data:www-data /var/www/html/public/storage/documents && \
-    chmod -R 775 /var/www/html/public/storage/documents
-# Droits d'accès complets
-RUN mkdir -p /var/www/html/public/storage/courriers && \
-    mkdir -p /var/www/html/public/storage/documents && \
-    chown -R www-data:www-data /var/www/html && \
-    chmod -R 775 /var/www/html && \
-    chown -R www-data:www-data /var/www/html/public && \
-    chmod -R 775 /var/www/html/public && \
-    chown -R www-data:www-data /var/www/html/storage && \
-    chmod -R 775 /var/www/html/storage && \
-    chown -R www-data:www-data /var/www/html/bootstrap/cache && \
-    chmod -R 775 /var/www/html/bootstrap/cache && \
-    chown -R www-data:www-data /var/www/html/vendor && \
-    chmod -R 775 /var/www/html/vendor && \
-    chown -R www-data:www-data /var/www/html/public/storage/courriers && \
-    chmod -R 775 /var/www/html/public/storage/courriers && \
-    chown -R www-data:www-data /var/www/html/public/storage/documents && \
-    chmod -R 775 /var/www/html/public/storage/documents
+    chmod -R 775 /var/www/html/vendor
 
 
 

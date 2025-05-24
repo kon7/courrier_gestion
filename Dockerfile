@@ -39,7 +39,12 @@ RUN chown -R www-data:www-data /var/www/html && \
     chown -R www-data:www-data /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/bootstrap/cache && \
     chown -R www-data:www-data /var/www/html/vendor && \
-    chmod -R 775 /var/www/html/vendor
+    chmod -R 775 /var/www/html/vendor && \
+    chown -R www-data:www-data /var/www/html/public/storage/courriers && \
+    chmod -R 775 /var/www/html/public/storage/courriers && \
+    chown -R www-data:www-data /var/www/html/public/storage/documents && \
+    chmod -R 775 /var/www/html/public/storage/documents
+
 
 # Copier le script keep-alive
 COPY keep-alive.sh /keep-alive.sh
